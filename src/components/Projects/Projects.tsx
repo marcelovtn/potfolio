@@ -7,7 +7,7 @@ import Particle from '../Particle';
 import ProjectCard from './ProjectCards';
 function Projects() {
   return (
-    <Container fluid className="project-section">
+    <Container fluid className="project-section" id="project">
       <Particle />
       <Container>
         <h1 className="project-heading">
@@ -22,7 +22,7 @@ function Projects() {
               imgPath={amFinance}
               isBlog={true}
               title="AM Finance"
-              description="Complete personal financial control system initially made in Spring and migrated to next.js with server actions"
+              description="An entrepreneurial journey where I owned the full product lifecycle — from software architecture and development to marketing strategy and deployment. AM Finance is a SaaS personal finance platform built with Next.js, already serving paying subscribers."
               prodLink="https://www.amfinance.com.br/"
             />
           </Col>

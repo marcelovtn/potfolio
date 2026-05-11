@@ -14,27 +14,31 @@ const Home2 = () => {
 					Let me <span className="purple"> INTRODUCE </span> myself
 					</h1>
 					<p className="home-about-body">
-					I am a programmer passionate about programming who always seeks to
-					improve as a programmer
+					Full-Stack Engineer with <b className="purple">5+ years</b> building
+					web products across fast-paced startups and scale-ups.
 					<br />
 					<br />
-					I have expertise in classic languages such as:
+					Strong frontend depth in{' '}
 					<i>
-						<b className="purple"> Java, Typescript and JavaScript</b>
+						<b className="purple">React.js / TypeScript</b>
 					</i>
-					<br />
-					<br />
-					My interests are to produce projects that can leave my legacy
-					on earth, &nbsp;
+					, solid backend experience in{' '}
 					<i>
-						especially using{' '}
-						<b className="purple">new market technologies</b>
+						<b className="purple">Node.js / NestJS</b>
 					</i>
+					, and hands-on{' '}
+					<b className="purple">AI tooling</b> with agents, MCP, and streaming integrations.
 					<br />
 					<br />
-					Whenever possible I try to apply my knowledge in{' '}
-					<b className="purple">React.js</b> and{' '}
-					<b className="purple">Node</b> in real projects
+					Currently working at{' '}
+					<b className="purple">Hubs</b> — a Silicon Valley startup — taking
+					full ownership of features end-to-end.
+					<br />
+					<br />
+					Founded and shipped{' '}
+					<b className="purple">AM Finance</b> — a SaaS product taken from
+					zero to production, owning the full lifecycle: ideation, architecture,
+					marketing strategy, and deployment.
 					</p>
 				</Col>
 					<Col md={4} className="myAvtar">

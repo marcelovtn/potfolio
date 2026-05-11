@@ -57,8 +57,7 @@ const NavBar = () => {
 
 						<Nav.Item>
 							<Nav.Link
-								as={Link}
-								to="/about"
+								href="/#about"
 								onClick={() => updateExpanded(false)}
 							>
 								<AiOutlineUser style={{ marginBottom: '2px' }} /> About
@@ -67,8 +66,7 @@ const NavBar = () => {
 
 						<Nav.Item>
 							<Nav.Link
-								as={Link}
-								to="/project"
+								href="/#project"
 								onClick={() => updateExpanded(false)}
 							>
 								<AiOutlineFundProjectionScreen

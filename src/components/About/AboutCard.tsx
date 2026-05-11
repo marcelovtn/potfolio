@@ -10,7 +10,8 @@ function AboutCard() {
             Hey, what's up? I'm <span className="purple">Marcelo Távora </span>
             and I live in <span className="purple"> Fortaleza, Brazil.</span>
             <br />
-            Currently I work as a full-stack developer at Febracis.
+            Currently I work as a Full-Stack Engineer at{' '}
+            <span className="purple">Hubs</span>, a startup based in Silicon Valley.
             <br />
             I have a degree in Systems Analysis and Development.
             <br />
@@ -19,10 +20,10 @@ function AboutCard() {
           </p>
           <ul>
             <li className="about-activity">
-              <ImPointRight /> Playing some computer games
+              <ImPointRight /> Brazilian Jiu-Jitsu
             </li>
             <li className="about-activity">
-              <ImPointRight /> Watching animes
+              <ImPointRight /> Sports in general
             </li>
             <li className="about-activity">
               <ImPointRight /> Traveling
