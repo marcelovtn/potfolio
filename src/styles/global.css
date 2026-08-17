@@ -1,0 +1,721 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Only the ground and ink cross-fade on a theme change; transitioning
+   * everything would make the switch feel sloppy rather than smooth. */
+  transition: background-color 260ms ease, color 260ms ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+dd,
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--ground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Primitives ----------------------------------------------------------- */
+
+.shell {
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  line-height: 1;
+}
+
+.display {
+  font-size: var(--text-display);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  font-weight: 400;
+}
+
+.lead {
+  font-size: var(--text-lead);
+  line-height: 1.45;
+  color: var(--ink-muted);
+  max-width: var(--measure-text);
+}
+
+.prose {
+  color: var(--ink-muted);
+  max-width: var(--measure-text);
+}
+
+.rule {
+  height: 1px;
+  border: 0;
+  background: var(--rule);
+}
+
+.link {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent-dim);
+  padding-bottom: 2px;
+  transition: border-color 160ms ease;
+}
+
+.link:hover {
+  border-color: var(--accent);
+}
+
+/* --- Grafismo ------------------------------------------------------------- *
+ * One parametric dot field per section, same corner, same crop, same weight, so
+ * none of them competes with the copy. Generated as inline SVG from
+ * src/lib/dotField.ts — no request, no image decode, no animation loop.
+ */
+
+.grafismo {
+  position: absolute;
+  top: calc(var(--space-4) * -1);
+  right: calc(var(--gutter) * -0.6);
+  width: min(54vw, 640px);
+  height: auto;
+  pointer-events: none;
+  fill: var(--ink);
+  opacity: var(--dot-field);
+  mask-image: linear-gradient(215deg, #000 46%, transparent 90%);
+  -webkit-mask-image: linear-gradient(215deg, #000 46%, transparent 90%);
+  /* Transform is written by usePointerDrift; the easing lives here. */
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grafismo--hero {
+  top: calc(var(--space-5) * -1);
+  width: min(64vw, 780px);
+  opacity: var(--dot-field-hero);
+}
+
+.grafismo circle {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.grafismo--assemble circle {
+  animation: dot-in 620ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--step, 0) * 620ms);
+}
+
+@keyframes dot-in {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grafismo--assemble circle {
+    animation: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .grafismo {
+    width: 76vw;
+    right: calc(var(--gutter) * -1);
+    mask-image: linear-gradient(205deg, #000 14%, transparent 62%);
+    -webkit-mask-image: linear-gradient(205deg, #000 14%, transparent 62%);
+  }
+}
+
+/* --- Header --------------------------------------------------------------- */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--ground);
+  background: color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 64px;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.header__brand {
+  color: var(--ink);
+}
+
+.header__link {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  transition: color 160ms ease;
+}
+
+.header__link:hover {
+  color: var(--ink);
+}
+
+.header__link--cta {
+  color: var(--accent);
+}
+
+/* --- Language and theme switches ------------------------------------------ */
+
+.switches {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-left: var(--space-1);
+  padding-left: var(--space-2);
+  border-left: 1px solid var(--rule);
+}
+
+.locale {
+  display: flex;
+  align-items: center;
+}
+
+.locale__option,
+.theme {
+  appearance: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--ink-faint);
+  transition: color 160ms ease;
+}
+
+.locale__option {
+  padding: 4px 5px;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+}
+
+.locale__option:hover,
+.theme:hover {
+  color: var(--ink);
+}
+
+.locale__option[aria-pressed='true'] {
+  color: var(--accent);
+}
+
+.theme {
+  display: grid;
+  place-items: center;
+  padding: 4px;
+}
+
+.theme svg {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+@media (max-width: 620px) {
+  .header__nav {
+    gap: var(--space-2);
+  }
+  .header__link {
+    letter-spacing: 0.08em;
+  }
+  .switches {
+    padding-left: var(--space-1);
+  }
+}
+
+/* --- Section scaffold ----------------------------------------------------- */
+
+.section {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-7);
+  border-bottom: 1px solid var(--rule);
+}
+
+.section__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.section__head--tight {
+  margin-bottom: var(--space-4);
+}
+
+/* --- Hero ----------------------------------------------------------------- */
+
+.hero {
+  padding-block: var(--space-7) var(--space-6);
+}
+
+/* Copy left, board right. The board is in flow rather than absolute, so it can
+ * never land on the copy the way an absolutely placed field would. */
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.hero__aside {
+  width: min(22vw, 272px);
+}
+
+.hero__name {
+  margin-block: var(--space-3) var(--space-4);
+  font-size: var(--text-display-lg);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  font-weight: 400;
+  max-width: 22ch;
+}
+
+.hero__now {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule);
+}
+
+.hero__now dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-bottom: var(--space-1);
+}
+
+.hero__now dd {
+  font-size: var(--text-body-sm);
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .hero__aside {
+    width: 0;
+  }
+}
+
+/* --- Playfield ------------------------------------------------------------ *
+ * Tetris drawn in the same dot lattice as the grafismos: empty cells stay
+ * hairline, settled cells fill in ink, and the falling piece is the only place
+ * the accent appears. It plays itself until someone takes it over.
+ */
+
+.playfield {
+  display: grid;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.playfield__board {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.playfield__empty,
+.playfield__settled {
+  fill: var(--ink);
+}
+
+.playfield__active {
+  fill: var(--accent);
+}
+
+.playfield__empty {
+  opacity: var(--dot-empty);
+}
+
+.playfield__settled {
+  opacity: var(--dot-settled);
+  transition: opacity 320ms ease;
+}
+
+.playfield__active {
+  opacity: var(--dot-piece);
+  transition: opacity 320ms ease;
+}
+
+/* Taking over lifts the board out of grafismo weight to full contrast. */
+.playfield--play .playfield__empty {
+  opacity: 0.26;
+}
+
+.playfield--play .playfield__settled {
+  opacity: 0.62;
+}
+
+.playfield--play .playfield__active {
+  opacity: 1;
+}
+
+.playfield__hud {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  opacity: 0.7;
+  transition: opacity 200ms ease;
+}
+
+.playfield:hover .playfield__hud,
+.playfield--play .playfield__hud {
+  opacity: 1;
+}
+
+.playfield__cue {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent-dim);
+}
+
+.playfield__score {
+  color: var(--accent);
+}
+
+/* --- Experience ----------------------------------------------------------- */
+
+.role {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--space-5);
+  align-items: start;
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--rule);
+}
+
+.role:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.role__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.role__company {
+  font-size: var(--text-display-sm);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
+
+.role__link {
+  border-bottom: 1px solid var(--accent-dim);
+  transition: border-color 160ms ease;
+}
+
+.role__link:hover {
+  border-color: var(--accent);
+}
+
+.role__period,
+.role__context {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+.role__title {
+  margin-top: var(--space-1);
+  font-size: var(--text-body);
+  color: var(--ink);
+}
+
+.role__context {
+  margin-top: 6px;
+}
+
+.role__bullets {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.role__bullets li {
+  position: relative;
+  padding-left: var(--space-3);
+  color: var(--ink-muted);
+  font-size: var(--text-body-sm);
+  line-height: 1.6;
+}
+
+.role__bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 11px;
+  height: 1px;
+  background: var(--rule-strong);
+}
+
+.role__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--rule);
+}
+
+/* --- Live-site preview ---------------------------------------------------- *
+ * A screenshot of each site, captured from the live page and shipped as WebP.
+ * Lazily loaded with its real dimensions declared, so it costs nothing on the
+ * critical path and reserves its own box instead of shifting the layout.
+ */
+
+.preview {
+  display: grid;
+  gap: var(--space-1);
+  position: sticky;
+  top: calc(64px + var(--space-3));
+}
+
+.preview__shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  opacity: var(--preview-rest);
+  filter: var(--preview-shade);
+  transition: opacity 220ms ease, border-color 220ms ease;
+}
+
+.preview:hover .preview__shot {
+  opacity: 1;
+  border-color: var(--rule-strong);
+}
+
+.preview__domain {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  transition: color 160ms ease;
+}
+
+.preview__domain::after {
+  content: ' ↗';
+}
+
+.preview:hover .preview__domain {
+  color: var(--accent);
+}
+
+@media (max-width: 1000px) {
+  .role {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  /* Screen first on a narrow layout: it says what the thing is faster than the
+   * bullets do. */
+  .preview {
+    position: static;
+    order: -1;
+    max-width: 460px;
+  }
+}
+
+.role__stack dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.role__stack dd {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+}
+
+/* --- About and toolkit ---------------------------------------------------- */
+
+.about__lead {
+  margin-bottom: var(--space-4);
+}
+
+.about__stack {
+  margin-top: var(--space-6);
+}
+
+.stack {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: var(--space-3) var(--space-4);
+}
+
+.stack__group dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid var(--rule);
+}
+
+.stack__group dd {
+  margin-top: var(--space-2);
+  font-size: var(--text-body-sm);
+  color: var(--ink-muted);
+}
+
+/* --- Contact and footer --------------------------------------------------- */
+
+.contact {
+  padding-block: var(--space-7);
+  border-bottom: 0;
+}
+
+.contact__headline {
+  margin-top: var(--space-3);
+  max-width: 30ch;
+}
+
+.contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.contact__link {
+  font-size: var(--text-lead);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: var(--space-1);
+  transition: border-color 160ms ease, color 160ms ease;
+}
+
+.contact__link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.contact__rule {
+  margin-top: var(--space-6);
+}
+
+.footer {
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  justify-content: space-between;
+}
+
+.footer--bare {
+  border-top: 0;
+}
+
+.footer p {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+
+.footer__note {
+  max-width: 52ch;
+}

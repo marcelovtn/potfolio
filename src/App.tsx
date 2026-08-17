@@ -1,51 +1,34 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useState } from 'react';
-import {
-	Navigate,
-	Route,
-	BrowserRouter as Router,
-	Routes,
-} from 'react-router-dom';
-import Preloader from '../src/components/Pre';
-import './App.css';
-import About from './components/About/About';
-import Home from './components/Home/Home';
-import Navbar from './components/Navbar';
-import Projects from './components/Projects/Projects';
-import Resume from './components/Resume/ResumeNew';
-import ScrollToTop from './components/ScrollToTop';
-import './style.css';
+import Header from './components/Header';
+import { copy } from './content/copy';
+import { CopyContext, useLocaleState } from './content/locale';
+import { usePointerDrift } from './lib/usePointerDrift';
+import { useTheme } from './lib/useTheme';
+import About from './sections/About';
+import Contact from './sections/Contact';
+import Experience from './sections/Experience';
+import Hero from './sections/Hero';
+import './styles/global.css';
 
 const App = () => {
-	const [load, upadateLoad] = useState(true);
-
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			upadateLoad(false);
-		}, 1200);
-
-		return () => clearTimeout(timer);
-	}, []);
+	const { locale, setLocale } = useLocaleState();
+	const { resolved: theme, toggle: toggleTheme } = useTheme();
+	usePointerDrift();
 
 	return (
-		<Router>
-			<Preloader load={load} />
-			<div className="App" id={load ? 'no-scroll' : 'scroll'}>
-				<Navbar />
-				<ScrollToTop />
-				<Routes>
-					<Route path="/" element={
-						<>
-							<Home />
-							<About />
-							<Projects />
-						</>
-					} />
-					<Route path="/resume" element={<Resume />} />
-					<Route path="*" element={<Navigate to="/" />} />
-				</Routes>
-			</div>
-		</Router>
+		<CopyContext.Provider value={copy[locale]}>
+			<Header
+				locale={locale}
+				onLocaleChange={setLocale}
+				theme={theme}
+				onThemeToggle={toggleTheme}
+			/>
+			<main>
+				<Hero />
+				<Experience />
+				<About />
+				<Contact />
+			</main>
+		</CopyContext.Provider>
 	);
 };
 
