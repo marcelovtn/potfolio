@@ -1,0 +1,156 @@
+/*
+ * Design tokens.
+ *
+ * Method borrowed from the Verbalt system (single spacing scale, display/mono
+ * pairing, zero radius, two grounds, one restrained accent) — the palette and
+ * typography are this site's own.
+ *
+ * Two themes. Light is the paper original; dark is the same palette inverted,
+ * keeping the warm ink so it never reads as neutral black. Colour lives ONLY in
+ * the three blocks below, so no component ever hard-codes a hex.
+ *
+ * No webfonts are loaded on purpose: this site argues about front-end
+ * performance, so it pays zero bytes for type.
+ */
+
+:root {
+	/* --- Light: paper ------------------------------------------------------ *
+	 * Developer portfolios are overwhelmingly dark, and near-black with a green
+	 * or purple accent is the most worn pair in the genre. Bone with ink also
+	 * suits the serif display and lets the dot grafismo read as print halftone.
+	 */
+	--ground: #f4efe6;
+	--ground-raised: #ece5d9;
+	--ground-inset: #faf7f2;
+
+	--ink: #16181a;
+	--ink-muted: rgba(22, 24, 26, 0.72);
+	--ink-faint: rgba(22, 24, 26, 0.5);
+	--rule: rgba(22, 24, 26, 0.16);
+	--rule-strong: rgba(22, 24, 26, 0.32);
+
+	/* One accent, used for measured results and links — never as a large fill. */
+	--accent: #1a3fe0;
+	--accent-dim: rgba(26, 63, 224, 0.22);
+
+	/* Dot weights. Dark dots on paper read stronger than the inverse at equal
+	 * alpha, so each theme carries its own set. */
+	--dot-field: 0.13;
+	--dot-field-hero: 0.17;
+	--dot-empty: 0.2;
+	--dot-settled: 0.19;
+	--dot-piece: 0.34;
+
+	/* A screenshot is the one place real colour enters the page. On paper it can
+	 * sit at full strength; on a dark ground a white screen glares. */
+	--preview-rest: 1;
+	--preview-shade: none;
+
+	color-scheme: light;
+}
+
+/* System preference. Guarded so an explicit light choice still wins. */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		--ground: #0d0f14;
+		--ground-raised: #151922;
+		--ground-inset: #0a0c10;
+
+		--ink: #edebe6;
+		--ink-muted: rgba(237, 235, 230, 0.7);
+		--ink-faint: rgba(237, 235, 230, 0.46);
+		--rule: rgba(237, 235, 230, 0.15);
+		--rule-strong: rgba(237, 235, 230, 0.3);
+
+		/* Ultramarine goes muddy on a dark ground; lift it until it reads. */
+		--accent: #7b9bff;
+		--accent-dim: rgba(123, 155, 255, 0.26);
+
+		--dot-field: 0.16;
+		--dot-field-hero: 0.2;
+		--dot-empty: 0.16;
+		--dot-settled: 0.24;
+		--dot-piece: 0.42;
+
+		--preview-rest: 0.82;
+		--preview-shade: saturate(0.92);
+
+		color-scheme: dark;
+	}
+}
+
+/* Explicit choice, so the toggle wins in both directions. */
+:root[data-theme='dark'] {
+	--ground: #0d0f14;
+	--ground-raised: #151922;
+	--ground-inset: #0a0c10;
+
+	--ink: #edebe6;
+	--ink-muted: rgba(237, 235, 230, 0.7);
+	--ink-faint: rgba(237, 235, 230, 0.46);
+	--rule: rgba(237, 235, 230, 0.15);
+	--rule-strong: rgba(237, 235, 230, 0.3);
+
+	--accent: #7b9bff;
+	--accent-dim: rgba(123, 155, 255, 0.26);
+
+	--dot-field: 0.16;
+	--dot-field-hero: 0.2;
+	--dot-empty: 0.16;
+	--dot-settled: 0.24;
+	--dot-piece: 0.42;
+
+	--preview-rest: 0.82;
+	--preview-shade: saturate(0.92);
+
+	color-scheme: dark;
+}
+
+:root {
+	/* --- Type -------------------------------------------------------------- */
+	--font-display: ui-serif, Georgia, 'Times New Roman', Times, serif;
+	--font-mono: ui-monospace, 'SFMono-Regular', 'SF Mono', Menlo, Consolas,
+		'Liberation Mono', monospace;
+
+	--text-label: 12px;
+	--text-body-sm: 15px;
+	--text-body: 18px;
+	--text-lead: 24px;
+	--text-display-sm: 28px;
+	--text-display: 44px;
+	--text-display-lg: 68px;
+
+	--tracking-display: -0.025em;
+	--tracking-label: 0.14em;
+
+	--leading-tight: 1.1;
+	--leading-body: 1.65;
+
+	/* --- Space and shape --------------------------------------------------- */
+	--space-1: 8px;
+	--space-2: 16px;
+	--space-3: 24px;
+	--space-4: 40px;
+	--space-5: 64px;
+	--space-6: 96px;
+	--space-7: 120px;
+
+	--radius: 0px;
+	--gutter: 64px;
+	--measure: 1120px;
+	--measure-text: 62ch;
+}
+
+@media (max-width: 900px) {
+	:root {
+		--text-display-lg: 38px;
+		--text-display: 30px;
+		--text-display-sm: 22px;
+		--text-lead: 19px;
+		--text-body: 16px;
+
+		--space-7: 72px;
+		--space-6: 56px;
+		--gutter: 22px;
+	}
+}
