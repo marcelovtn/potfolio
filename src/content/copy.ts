@@ -109,7 +109,7 @@ const en: Copy = {
 		now: [
 			{ term: 'Now', value: 'Hubs — Silicon Valley, remote' },
 			{ term: 'Focus', value: 'Full-stack product work, front-end architecture' },
-			{ term: 'Building', value: 'Kagebana — an idle RPG with 50+ players' },
+			{ term: 'Building', value: 'Kagebana — an idle RPG, top 2 on IdleHub.io' },
 			{ term: 'Studying', value: 'AI engineering — RAG, agents, evals' },
 		],
 	},
@@ -171,7 +171,7 @@ const en: Copy = {
 				context: 'Idle RPG for the browser · live, 50+ players',
 				period: PERIODS.kagebana,
 				bullets: [
-					'A samurai idle RPG: fights resolve themselves while you build the character, the loot and the talisman tree that win the next one. More than 50 people play it.',
+					'A samurai idle RPG: fights resolve themselves while you build the character, the loot and the talisman tree that win the next one. More than 50 people play it, and it ranks top 2 among idle RPGs on IdleHub.io (Nov 2026).',
 					'The server is authoritative — every save and trade is validated there, with accounts on Better Auth, a minimum-clear-time anti-cheat floor and Stripe for payments.',
 					'Balance is measured, not guessed: I run the combat engine headless against real player builds before shipping a change to damage or the economy, and audit pacing against production data.',
 					'Clans, friends, trading and chat between players, in English, Portuguese and Spanish.',
@@ -230,7 +230,7 @@ const pt: Copy = {
 		now: [
 			{ term: 'Hoje', value: 'Hubs — Vale do Silício, remoto' },
 			{ term: 'Foco', value: 'Produto full-stack, arquitetura de front-end' },
-			{ term: 'Construindo', value: 'Kagebana — um RPG idle com mais de 50 jogadores' },
+			{ term: 'Construindo', value: 'Kagebana — um RPG idle, top 2 no IdleHub.io' },
 			{ term: 'Estudando', value: 'Engenharia de IA — RAG, agents, evals' },
 		],
 	},
@@ -292,7 +292,7 @@ const pt: Copy = {
 				context: 'RPG idle para o navegador · no ar, mais de 50 jogadores',
 				period: PERIODS.kagebana,
 				bullets: [
-					'Um RPG idle de samurai: as lutas se resolvem sozinhas enquanto você monta o personagem, o loot e a árvore de talismãs que vencem a próxima. Mais de 50 pessoas jogam.',
+					'Um RPG idle de samurai: as lutas se resolvem sozinhas enquanto você monta o personagem, o loot e a árvore de talismãs que vencem a próxima. Mais de 50 pessoas jogam, e ele está no top 2 dos RPGs idle do IdleHub.io (nov/2026).',
 					'O servidor é a autoridade — todo save e toda troca é validado lá, com contas no Better Auth, um piso anti-cheat de tempo mínimo por fase e Stripe para pagamentos.',
 					'Balanceamento medido, não chutado: rodo o motor de combate sem interface contra builds reais de jogadores antes de soltar qualquer mudança de dano ou de economia, e audito o ritmo com dados de produção.',
 					'Clãs, amigos, trocas e chat entre jogadores, em inglês, português e espanhol.',
