@@ -24,8 +24,8 @@ Both builds produced with `npm run build` and compared as shipped.
 | | Before (forked template) | After |
 |---|---|---|
 | JavaScript, gzipped | 232 KB | **55 KB** |
-| CSS, gzipped | 36 KB | **3.0 KB** |
-| Critical path total, gzipped | ~349 KB | **~58 KB** |
+| CSS, gzipped | 36 KB | **3.2 KB** |
+| Critical path total, gzipped | ~349 KB | **~59 KB** |
 | Modules in bundle | 628 | **49** |
 | Runtime dependencies | 11 | **2** |
 | Webfont requests | 1, cross-origin | **0** |

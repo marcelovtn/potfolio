@@ -1,3 +1,5 @@
+import Trailer from '../components/Trailer';
+import { KAGEBANA_TRAILER } from '../content/copy';
 import { useCopy } from '../content/locale';
 import { RoleEntry } from './Experience';
 
@@ -18,11 +20,17 @@ const Projects = () => {
 				</div>
 
 				{t.projects.items.map((project) => (
-					<RoleEntry
-						key={project.company}
-						role={project}
-						stackLabel={t.experience.stackLabel}
-					/>
+					<div key={project.company}>
+						<RoleEntry role={project} stackLabel={t.experience.stackLabel} />
+						{project.company === 'Kagebana' && (
+							<Trailer
+								youtubeId={KAGEBANA_TRAILER.youtubeId}
+								poster={KAGEBANA_TRAILER.poster}
+								play={t.projects.trailer.play}
+								title={t.projects.trailer.title}
+							/>
+						)}
+					</div>
 				))}
 			</div>
 		</section>

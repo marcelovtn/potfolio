@@ -619,6 +619,76 @@ a {
   }
 }
 
+/* --- Trailer -------------------------------------------------------------- *
+ * Poster until clicked; the YouTube iframe replaces it in the same 16:9 box, so
+ * nothing moves when it loads.
+ */
+
+.trailer {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-width: 880px;
+  margin: 0 0 var(--space-6);
+  border: 1px solid var(--rule);
+  background: #000;
+}
+
+.trailer__poster {
+  appearance: none;
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.trailer__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: var(--preview-rest);
+  filter: var(--preview-shade);
+  transition: opacity 220ms ease;
+}
+
+.trailer__poster:hover .trailer__img,
+.trailer__poster:focus-visible .trailer__img {
+  opacity: 1;
+}
+
+.trailer__play {
+  position: absolute;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+}
+
+.trailer__play svg {
+  fill: currentColor;
+}
+
+.trailer__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .role__stack dt {
   font-family: var(--font-mono);
   font-size: var(--text-label);

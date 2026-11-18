@@ -15,6 +15,7 @@
 import amfinanceShot from '../Assets/previews/amfinance.webp';
 import hubsShot from '../Assets/previews/hubs.webp';
 import kagebanaShot from '../Assets/previews/kagebana.webp';
+import kagebanaTrailerPoster from '../Assets/previews/kagebana-trailer.webp';
 import verbaltShot from '../Assets/previews/verbalt.webp';
 
 export const LOCALES = ['en', 'pt'] as const;
@@ -45,10 +46,19 @@ export const PERIODS = {
 export type Preview = {
 	/** Imported WebP, captured from the live site. */
 	src: string;
+	/** Real encoded pixels of `src`; defaults to 760 × 475. */
+	width?: number;
+	height?: number;
 	alt: string;
 	href: string;
 	domain: string;
 };
+
+/** The trailer is on YouTube; the page only ever loads the player on click. */
+export const KAGEBANA_TRAILER = {
+	youtubeId: '0lb6eTXIz20',
+	poster: kagebanaTrailerPoster,
+} as const;
 
 export type Role = {
 	company: string;
@@ -62,7 +72,13 @@ export type Role = {
 
 /** Screens are shared; only the alt text is translated. */
 const SHOTS = {
-	kagebana: { src: kagebanaShot, href: 'https://kagebana.app/', domain: 'kagebana.app' },
+	kagebana: {
+		src: kagebanaShot,
+		width: 760,
+		height: 616,
+		href: 'https://kagebana.app/',
+		domain: 'kagebana.app',
+	},
 	hubs: { src: hubsShot, href: 'https://hubs.is/', domain: 'hubs.is' },
 	verbalt: { src: verbaltShot, href: 'https://verbalt.com.br/', domain: 'verbalt.com.br' },
 	amFinance: {
@@ -83,7 +99,7 @@ export type Copy = {
 		now: { term: string; value: string }[];
 	};
 	experience: { label: string; stackLabel: string; roles: Role[] };
-	projects: { label: string; items: Role[] };
+	projects: { label: string; items: Role[]; trailer: { play: string; title: string } };
 	about: { label: string; lead: string; paragraphs: string[] };
 	stack: { label: string; groups: { group: string; items: string }[] };
 	closing: {
@@ -164,14 +180,15 @@ const en: Copy = {
 	},
 	projects: {
 		label: 'Projects',
+		trailer: { play: 'Watch the trailer', title: 'Kagebana — trailer' },
 		items: [
 			{
 				company: 'Kagebana',
 				role: 'Creator · full-stack',
-				context: 'Idle RPG for the browser · live, 50+ players',
+				context: 'Idle RPG for the browser · live, top 2 on IdleHub.io',
 				period: PERIODS.kagebana,
 				bullets: [
-					'A samurai idle RPG: fights resolve themselves while you build the character, the loot and the talisman tree that win the next one. More than 50 people play it, and it ranks top 2 among idle RPGs on IdleHub.io (Nov 2026).',
+					'A samurai idle RPG: fights resolve themselves while you build the character, the loot and the talisman tree that win the next one. It ranks top 2 among idle RPGs on IdleHub.io (Nov 2026).',
 					'The server is authoritative — every save and trade is validated there, with accounts on Better Auth, a minimum-clear-time anti-cheat floor and Stripe for payments.',
 					'Balance is measured, not guessed: I run the combat engine headless against real player builds before shipping a change to damage or the economy, and audit pacing against production data.',
 					'Clans, friends, trading and chat between players, in English, Portuguese and Spanish.',
@@ -186,7 +203,7 @@ const en: Copy = {
 		label: 'About',
 		lead: 'I am Marcelo. I live in Fortaleza, on the north-east coast of Brazil, and I work remotely with a team in California.',
 		paragraphs: [
-			'I came up building whole products rather than one layer of them — my own SaaS, a field-operations platform for the wind-energy sector, an idle RPG with more than 50 players, and now a product used by paying customers. That is why I work across the stack: I would rather understand the query behind a slow screen than hand the problem to someone else.',
+			'I came up building whole products rather than one layer of them — my own SaaS, a field-operations platform for the wind-energy sector, an idle RPG ranked top 2 on IdleHub.io, and now a product used by paying customers. That is why I work across the stack: I would rather understand the query behind a slow screen than hand the problem to someone else.',
 			'What I have specialised in along the way is making things that stay fast once they are big. Measure first, then fix the cause you found rather than the one you assumed.',
 			'Off the keyboard I train jiu-jitsu, which is where I learned how to study anything: one system at a time, mapped out, until it stops being technique and becomes instinct.',
 		],
@@ -207,7 +224,7 @@ const en: Copy = {
 		headline: 'Got a hard problem? I would like to hear about it.',
 		email: 'Email',
 		resume: 'Résumé',
-		builtWith: 'Two runtime dependencies. No framework, no webfonts, 58 KB gzipped.',
+		builtWith: 'Two runtime dependencies. No framework, no webfonts, 59 KB gzipped.',
 	},
 	playfield: {
 		idle: 'Tetris · plays itself',
@@ -285,14 +302,15 @@ const pt: Copy = {
 	},
 	projects: {
 		label: 'Projetos',
+		trailer: { play: 'Assistir ao trailer', title: 'Kagebana — trailer' },
 		items: [
 			{
 				company: 'Kagebana',
 				role: 'Criador · full-stack',
-				context: 'RPG idle para o navegador · no ar, mais de 50 jogadores',
+				context: 'RPG idle para o navegador · no ar, top 2 no IdleHub.io',
 				period: PERIODS.kagebana,
 				bullets: [
-					'Um RPG idle de samurai: as lutas se resolvem sozinhas enquanto você monta o personagem, o loot e a árvore de talismãs que vencem a próxima. Mais de 50 pessoas jogam, e ele está no top 2 dos RPGs idle do IdleHub.io (nov/2026).',
+					'Um RPG idle de samurai: as lutas se resolvem sozinhas enquanto você monta o personagem, o loot e a árvore de talismãs que vencem a próxima. Ele está no top 2 dos RPGs idle do IdleHub.io (nov/2026).',
 					'O servidor é a autoridade — todo save e toda troca é validado lá, com contas no Better Auth, um piso anti-cheat de tempo mínimo por fase e Stripe para pagamentos.',
 					'Balanceamento medido, não chutado: rodo o motor de combate sem interface contra builds reais de jogadores antes de soltar qualquer mudança de dano ou de economia, e audito o ritmo com dados de produção.',
 					'Clãs, amigos, trocas e chat entre jogadores, em inglês, português e espanhol.',
@@ -307,7 +325,7 @@ const pt: Copy = {
 		label: 'Sobre',
 		lead: 'Sou o Marcelo. Moro em Fortaleza, no litoral do Nordeste, e trabalho remoto com um time na Califórnia.',
 		paragraphs: [
-			'Eu cresci construindo produtos inteiros, não uma camada deles — meu próprio SaaS, uma plataforma de operação em campo para o setor eólico, um RPG idle com mais de 50 jogadores, e hoje um produto usado por quem paga por ele. É por isso que trabalho em toda a stack: prefiro entender a query atrás de uma tela lenta do que passar o problema pra frente.',
+			'Eu cresci construindo produtos inteiros, não uma camada deles — meu próprio SaaS, uma plataforma de operação em campo para o setor eólico, um RPG idle no top 2 do IdleHub.io, e hoje um produto usado por quem paga por ele. É por isso que trabalho em toda a stack: prefiro entender a query atrás de uma tela lenta do que passar o problema pra frente.',
 			'O que eu acabei especializando no caminho foi fazer coisa que continua rápida depois de ficar grande. Medir primeiro, e depois consertar a causa que apareceu em vez da que eu supus.',
 			'Fora do teclado eu treino jiu-jitsu, que é onde aprendi a estudar qualquer coisa: um sistema por vez, mapeado, até deixar de ser técnica e virar instinto.',
 		],
@@ -328,7 +346,7 @@ const pt: Copy = {
 		headline: 'Tem um problema difícil? Eu quero saber dele.',
 		email: 'E-mail',
 		resume: 'Currículo',
-		builtWith: 'Duas dependências de runtime. Sem framework, sem webfont, 58 KB gzip.',
+		builtWith: 'Duas dependências de runtime. Sem framework, sem webfont, 59 KB gzip.',
 	},
 	playfield: {
 		idle: 'Tetris · joga sozinho',

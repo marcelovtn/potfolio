@@ -42,8 +42,8 @@ export const RoleEntry = ({ role, stackLabel }: { role: Role; stackLabel: string
 				className="preview__shot"
 				src={role.preview.src}
 				alt={role.preview.alt}
-				width={760}
-				height={475}
+				width={role.preview.width ?? 760}
+				height={role.preview.height ?? 475}
 				loading="lazy"
 				decoding="async"
 			/>
