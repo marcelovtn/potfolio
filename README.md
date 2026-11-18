@@ -1,6 +1,6 @@
 # marcelotavora.dev
 
-Personal site. One page, three case studies, no framework.
+Personal site. One page, three roles and one side project, no framework.
 
 ## Why it is built this way
 
@@ -23,9 +23,9 @@ Both builds produced with `npm run build` and compared as shipped.
 
 | | Before (forked template) | After |
 |---|---|---|
-| JavaScript, gzipped | 232 KB | **53 KB** |
-| CSS, gzipped | 36 KB | **2.8 KB** |
-| Critical path total, gzipped | ~349 KB | **~56 KB** |
+| JavaScript, gzipped | 232 KB | **55 KB** |
+| CSS, gzipped | 36 KB | **3.0 KB** |
+| Critical path total, gzipped | ~349 KB | **~58 KB** |
 | Modules in bundle | 628 | **49** |
 | Runtime dependencies | 11 | **2** |
 | Webfont requests | 1, cross-origin | **0** |
@@ -49,7 +49,7 @@ src/
   styles/tokens.css   design tokens
   styles/global.css   reset, primitives, components
   components/         Header
-  sections/           Hero, Work, About, Contact
+  sections/           Hero, Experience, Projects, About, Contact
 ```
 
 Editing text means editing `copy.ts` only. Adding a case study means adding an

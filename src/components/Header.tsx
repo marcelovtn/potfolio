@@ -40,6 +40,9 @@ const Header = ({ locale, onLocaleChange, theme, onThemeToggle }: Props) => {
 					<a className="header__link" href="#experience">
 						{t.nav.experience}
 					</a>
+					<a className="header__link header__link--wide" href="#projects">
+						{t.nav.projects}
+					</a>
 					<a className="header__link" href="#about">
 						{t.nav.about}
 					</a>

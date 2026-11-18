@@ -6,7 +6,7 @@ import { useCopy } from '../content/locale';
  * visual weight, and two graphics at comparable weight read as mush.
  */
 
-const RoleEntry = ({ role, stackLabel }: { role: Role; stackLabel: string }) => (
+export const RoleEntry = ({ role, stackLabel }: { role: Role; stackLabel: string }) => (
 	<article className="role">
 		<div className="role__body">
 			<header className="role__head">

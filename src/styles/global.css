@@ -292,6 +292,11 @@ a {
 }
 
 @media (max-width: 620px) {
+  /* Four links do not fit beside the switches on a phone; the section is one
+     scroll below Experience, so this is the one that goes. */
+  .header__link--wide {
+    display: none;
+  }
   .header__nav {
     gap: var(--space-2);
   }

@@ -14,6 +14,7 @@
 
 import amfinanceShot from '../Assets/previews/amfinance.webp';
 import hubsShot from '../Assets/previews/hubs.webp';
+import kagebanaShot from '../Assets/previews/kagebana.webp';
 import verbaltShot from '../Assets/previews/verbalt.webp';
 
 export const LOCALES = ['en', 'pt'] as const;
@@ -22,8 +23,7 @@ export type Locale = (typeof LOCALES)[number];
 /** Not translated: names, addresses and URLs are the same in both languages. */
 export const contact = {
 	name: 'Marcelo Távora',
-	// TODO(marcelo): put the address you actually want public here.
-	email: 'hello@example.com',
+	email: 'marcelovtneves@gmail.com',
 	linkedin: 'https://www.linkedin.com/in/marcelovtn/',
 	// TODO(marcelo): this is the CR3WDev org, carried over from the old site.
 	// Point it at your personal profile if you would rather show that.
@@ -36,6 +36,7 @@ export const contact = {
  * solid. Verbalt and AM Finance are my best inference and may well be wrong.
  */
 export const PERIODS = {
+	kagebana: '2026 — present',
 	hubs: '2025 — present',
 	verbalt: '2024 — present',
 	amFinance: '2022 — present',
@@ -61,6 +62,7 @@ export type Role = {
 
 /** Screens are shared; only the alt text is translated. */
 const SHOTS = {
+	kagebana: { src: kagebanaShot, href: 'https://kagebana.app/', domain: 'kagebana.app' },
 	hubs: { src: hubsShot, href: 'https://hubs.is/', domain: 'hubs.is' },
 	verbalt: { src: verbaltShot, href: 'https://verbalt.com.br/', domain: 'verbalt.com.br' },
 	amFinance: {
@@ -72,7 +74,7 @@ const SHOTS = {
 
 export type Copy = {
 	label: string;
-	nav: { experience: string; about: string; resume: string };
+	nav: { experience: string; projects: string; about: string; resume: string };
 	theme: { toLight: string; toDark: string };
 	profile: {
 		eyebrow: string;
@@ -81,6 +83,7 @@ export type Copy = {
 		now: { term: string; value: string }[];
 	};
 	experience: { label: string; stackLabel: string; roles: Role[] };
+	projects: { label: string; items: Role[] };
 	about: { label: string; lead: string; paragraphs: string[] };
 	stack: { label: string; groups: { group: string; items: string }[] };
 	closing: {
@@ -97,7 +100,7 @@ export type Copy = {
 
 const en: Copy = {
 	label: 'English',
-	nav: { experience: 'Experience', about: 'About', resume: 'Résumé' },
+	nav: { experience: 'Experience', projects: 'Projects', about: 'About', resume: 'Résumé' },
 	theme: { toLight: 'Switch to light theme', toDark: 'Switch to dark theme' },
 	profile: {
 		eyebrow: 'Full-stack engineer · Fortaleza, Brazil',
@@ -106,6 +109,7 @@ const en: Copy = {
 		now: [
 			{ term: 'Now', value: 'Hubs — Silicon Valley, remote' },
 			{ term: 'Focus', value: 'Full-stack product work, front-end architecture' },
+			{ term: 'Building', value: 'Kagebana — an idle RPG with 50+ players' },
 			{ term: 'Studying', value: 'AI engineering — RAG, agents, evals' },
 		],
 	},
@@ -158,11 +162,31 @@ const en: Copy = {
 			},
 		],
 	},
+	projects: {
+		label: 'Projects',
+		items: [
+			{
+				company: 'Kagebana',
+				role: 'Creator · full-stack',
+				context: 'Idle RPG for the browser · live, 50+ players',
+				period: PERIODS.kagebana,
+				bullets: [
+					'A samurai idle RPG: fights resolve themselves while you build the character, the loot and the talisman tree that win the next one. More than 50 people play it.',
+					'The server is authoritative — every save and trade is validated there, with accounts on Better Auth, a minimum-clear-time anti-cheat floor and Stripe for payments.',
+					'Balance is measured, not guessed: I run the combat engine headless against real player builds before shipping a change to damage or the economy, and audit pacing against production data.',
+					'Clans, friends, trading and chat between players, in English, Portuguese and Spanish.',
+					'Run it in production on Railway, with structured logs shipped to Loki and automated, encrypted database backups.',
+				],
+				stack: 'React · TypeScript · PixiJS · Hono · Prisma · PostgreSQL · Stripe · Loki',
+				preview: { ...SHOTS.kagebana, alt: 'A fight in Kagebana' },
+			},
+		],
+	},
 	about: {
 		label: 'About',
 		lead: 'I am Marcelo. I live in Fortaleza, on the north-east coast of Brazil, and I work remotely with a team in California.',
 		paragraphs: [
-			'I came up building whole products rather than one layer of them — my own SaaS, a field-operations platform for the wind-energy sector, and now a product used by paying customers. That is why I work across the stack: I would rather understand the query behind a slow screen than hand the problem to someone else.',
+			'I came up building whole products rather than one layer of them — my own SaaS, a field-operations platform for the wind-energy sector, an idle RPG with more than 50 players, and now a product used by paying customers. That is why I work across the stack: I would rather understand the query behind a slow screen than hand the problem to someone else.',
 			'What I have specialised in along the way is making things that stay fast once they are big. Measure first, then fix the cause you found rather than the one you assumed.',
 			'Off the keyboard I train jiu-jitsu, which is where I learned how to study anything: one system at a time, mapped out, until it stops being technique and becomes instinct.',
 		],
@@ -183,7 +207,7 @@ const en: Copy = {
 		headline: 'Got a hard problem? I would like to hear about it.',
 		email: 'Email',
 		resume: 'Résumé',
-		builtWith: 'Two runtime dependencies. No framework, no webfonts, 56 KB gzipped.',
+		builtWith: 'Two runtime dependencies. No framework, no webfonts, 58 KB gzipped.',
 	},
 	playfield: {
 		idle: 'Tetris · plays itself',
@@ -197,7 +221,7 @@ const en: Copy = {
 
 const pt: Copy = {
 	label: 'Português',
-	nav: { experience: 'Experiência', about: 'Sobre', resume: 'Currículo' },
+	nav: { experience: 'Experiência', projects: 'Projetos', about: 'Sobre', resume: 'Currículo' },
 	theme: { toLight: 'Mudar para tema claro', toDark: 'Mudar para tema escuro' },
 	profile: {
 		eyebrow: 'Engenheiro full-stack · Fortaleza, Brasil',
@@ -206,6 +230,7 @@ const pt: Copy = {
 		now: [
 			{ term: 'Hoje', value: 'Hubs — Vale do Silício, remoto' },
 			{ term: 'Foco', value: 'Produto full-stack, arquitetura de front-end' },
+			{ term: 'Construindo', value: 'Kagebana — um RPG idle com mais de 50 jogadores' },
 			{ term: 'Estudando', value: 'Engenharia de IA — RAG, agents, evals' },
 		],
 	},
@@ -258,11 +283,31 @@ const pt: Copy = {
 			},
 		],
 	},
+	projects: {
+		label: 'Projetos',
+		items: [
+			{
+				company: 'Kagebana',
+				role: 'Criador · full-stack',
+				context: 'RPG idle para o navegador · no ar, mais de 50 jogadores',
+				period: PERIODS.kagebana,
+				bullets: [
+					'Um RPG idle de samurai: as lutas se resolvem sozinhas enquanto você monta o personagem, o loot e a árvore de talismãs que vencem a próxima. Mais de 50 pessoas jogam.',
+					'O servidor é a autoridade — todo save e toda troca é validado lá, com contas no Better Auth, um piso anti-cheat de tempo mínimo por fase e Stripe para pagamentos.',
+					'Balanceamento medido, não chutado: rodo o motor de combate sem interface contra builds reais de jogadores antes de soltar qualquer mudança de dano ou de economia, e audito o ritmo com dados de produção.',
+					'Clãs, amigos, trocas e chat entre jogadores, em inglês, português e espanhol.',
+					'Opero em produção no Railway, com logs estruturados no Loki e backups automáticos e criptografados do banco.',
+				],
+				stack: 'React · TypeScript · PixiJS · Hono · Prisma · PostgreSQL · Stripe · Loki',
+				preview: { ...SHOTS.kagebana, alt: 'Uma luta no Kagebana' },
+			},
+		],
+	},
 	about: {
 		label: 'Sobre',
 		lead: 'Sou o Marcelo. Moro em Fortaleza, no litoral do Nordeste, e trabalho remoto com um time na Califórnia.',
 		paragraphs: [
-			'Eu cresci construindo produtos inteiros, não uma camada deles — meu próprio SaaS, uma plataforma de operação em campo para o setor eólico, e hoje um produto usado por quem paga por ele. É por isso que trabalho em toda a stack: prefiro entender a query atrás de uma tela lenta do que passar o problema pra frente.',
+			'Eu cresci construindo produtos inteiros, não uma camada deles — meu próprio SaaS, uma plataforma de operação em campo para o setor eólico, um RPG idle com mais de 50 jogadores, e hoje um produto usado por quem paga por ele. É por isso que trabalho em toda a stack: prefiro entender a query atrás de uma tela lenta do que passar o problema pra frente.',
 			'O que eu acabei especializando no caminho foi fazer coisa que continua rápida depois de ficar grande. Medir primeiro, e depois consertar a causa que apareceu em vez da que eu supus.',
 			'Fora do teclado eu treino jiu-jitsu, que é onde aprendi a estudar qualquer coisa: um sistema por vez, mapeado, até deixar de ser técnica e virar instinto.',
 		],
@@ -283,7 +328,7 @@ const pt: Copy = {
 		headline: 'Tem um problema difícil? Eu quero saber dele.',
 		email: 'E-mail',
 		resume: 'Currículo',
-		builtWith: 'Duas dependências de runtime. Sem framework, sem webfont, 56 KB gzip.',
+		builtWith: 'Duas dependências de runtime. Sem framework, sem webfont, 58 KB gzip.',
 	},
 	playfield: {
 		idle: 'Tetris · joga sozinho',
